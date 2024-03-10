@@ -6,6 +6,7 @@ namespace NEXUS.Controllers.WEB
     {
         public IActionResult Index()
         {
+            // i will add this commment in this this to check the commit button 
             return View();
         }
         public IActionResult About()
