@@ -24,5 +24,13 @@ namespace NEXUS.Controllers.WEB
         {
             return View();
         }
-    }
+		public IActionResult Registration()
+		{
+			return View();
+		}
+		public IActionResult Login()
+		{
+			return View();
+		}
+	}
 }
