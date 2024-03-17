@@ -2,6 +2,7 @@ CREATE DATABASE NEXUS
 
 USE NEXUS
 
+--All database commad is here
 --ALL BUSSNISS DATA START HERE
 CREATE TABLE ConnectionType (
     ConnectionTypeId INT PRIMARY KEY,
@@ -47,7 +48,7 @@ CREATE TABLE Customer(
 
 
 
-
+--ALL INSERT COMMAND IS HERE
 --INSERT OF DATA IS START HERE
 
 -- Connection Type
@@ -70,3 +71,9 @@ INSERT INTO CallCharges (CallChargeId, PlanId, CallType, Charge) VALUES
 (1, 1, 'Local', 0.55),  
 (2, 1, 'STD', 2.25),     
 (3, 1, 'Messaging For Mobiles', 1.00); 
+
+
+--ALL THE SELECT QUERY IS HERE
+
+select * from Customer
+

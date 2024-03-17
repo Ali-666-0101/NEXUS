@@ -14,11 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\ep\index.cshtml" />
+    <Content Remove="Views\CustomarPannal\Example code.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\ep\index.cshtml" />
+    <None Include="Views\CustomarPannal\Example code.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
