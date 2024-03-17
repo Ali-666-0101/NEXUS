@@ -28,9 +28,15 @@ namespace NEXUS.Controllers.WEB
 		{
 			return View();
 		}
-		public IActionResult Login()
-		{
-			return View();
-		}
-	}
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Loginsubmit()
+        {
+            return RedirectToAction("Index");
+           
+        }
+    }
 }

@@ -13,4 +13,12 @@
     <None Remove="Controllers\API\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\ep\index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\ep\index.cshtml" />
+  </ItemGroup>
+
 </Project>
