@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NEXUS.Models;
+
 namespace NEXUS
 {
     public class Program
@@ -8,6 +11,8 @@ namespace NEXUS
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<NEXUSContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
 
             var app = builder.Build();
 
