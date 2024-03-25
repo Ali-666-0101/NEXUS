@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NEXUS.Models;
 
 namespace NEXUS.Controllers
 {
@@ -13,6 +14,12 @@ namespace NEXUS.Controllers
             //HttpContext.Session.Clear();
 
             return RedirectToAction("Index", "WEB");
+        }
+
+        [HttpPost]
+        public IActionResult ServicesRegistration(ServicesRequestModel model)
+        {
+            return Json("noghting");
         }
     }
 }

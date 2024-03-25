@@ -5,15 +5,14 @@ namespace NEXUS.Models
 {
     public partial class Customer
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; } = null!;
-        public string? LastName { get; set; }
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string Address1 { get; set; } = null!;
-        public string? Address2 { get; set; }
-        public string PhoneNumber { get; set; } = null!;
-        public string City { get; set; } = null!;
-        public string ZipCode { get; set; } = null!;
+        public int CustomerId { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Address { get; set; }
+        public string? AddressDetails { get; set; }
+        public string? City { get; set; }
+        public string? ServiceName { get; set; }
+        public string? ZipCode { get; set; }
     }
 }

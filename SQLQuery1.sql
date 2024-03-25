@@ -30,20 +30,49 @@ CREATE TABLE CallCharges (
 
 
 
-CREATE TABLE Customer(
-	Id INT IDENTITY(1,1) PRIMARY KEY,
-	FirstName NVARCHAR(MAX) NOT NULL,
-	LastName NVARCHAR(MAX) NULL,
-	Email NVARCHAR(MAX) NOT NULL,
-	[Password] NVARCHAR(MAX) NOT NULL,
-	Address_1 NVARCHAR(MAX) NOT NULL,
-	Address_2 NVARCHAR(MAX) NULL,
-	PhoneNumber NVARCHAR(MAX) NOT NULL,
-	City NVARCHAR(MAX) NOT NULL,
-	ZipCode NVARCHAR(MAX) NOT NULL
-)
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY identity(1,1),
+    Name VARCHAR(MAX),
+    Email VARCHAR(MAX),
+    Phone VARCHAR(20),
+    Address NVARCHAR(MAX),
+    AddressDetails VARCHAR(255),
+    City VARCHAR(100),
+    ServiceName VARCHAR(100),
+    ZipCode VARCHAR(20)
+);
+
+CREATE TABLE DialUpConnection (
+    ConnectionID INT PRIMARY KEY identity(1,1),
+    CustomerID INT,
+    PakageName VARCHAR(50) not null,
+    Rates INT not null,
+);
+
+CREATE TABLE BroadbandConnection (
+    ConnectionID INT PRIMARY KEY identity(1,1),
+    CustomerID INT,
+    PakageName VARCHAR(50) not null,
+    Rates INT not null,
+);
+
+CREATE TABLE LandLineConnection (
+    ConnectionID INT PRIMARY KEY identity(1,1),
+    CustomerID INT not null,
+    PakageName VARCHAR(50) not null,
+    Rates INT not null,
+);
 
 
+
+
+
+
+--CREATE TABLE ServiceRequest(
+--	Id int identity(1,1) primary key,
+--	CutomarId int not null,
+--	Name Email Phone Address1 Address2 ServiceName ZipCode   
+--)
 
 
 
@@ -76,4 +105,10 @@ INSERT INTO CallCharges (CallChargeId, PlanId, CallType, Charge) VALUES
 --ALL THE SELECT QUERY IS HERE
 
 select * from Customer
+select * from CallCharges
+Select *from ConnectionPlan
+Select * from LandLineConnection
+
+
+
 

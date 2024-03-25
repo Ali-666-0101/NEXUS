@@ -16,10 +16,13 @@ namespace NEXUS.Models
         {
         }
 
+        public virtual DbSet<BroadbandConnection> BroadbandConnections { get; set; } = null!;
         public virtual DbSet<CallCharge> CallCharges { get; set; } = null!;
         public virtual DbSet<ConnectionPlan> ConnectionPlans { get; set; } = null!;
         public virtual DbSet<ConnectionType> ConnectionTypes { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<DialUpConnection> DialUpConnections { get; set; } = null!;
+        public virtual DbSet<LandLineConnection> LandLineConnections { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +33,22 @@ namespace NEXUS.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BroadbandConnection>(entity =>
+            {
+                entity.HasKey(e => e.ConnectionId)
+                    .HasName("PK__Broadban__404A64F3EBE37789");
+
+                entity.ToTable("BroadbandConnection");
+
+                entity.Property(e => e.ConnectionId).HasColumnName("ConnectionID");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.PakageName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<CallCharge>(entity =>
             {
                 entity.Property(e => e.CallChargeId).ValueGeneratedNever();
@@ -79,9 +98,63 @@ namespace NEXUS.Models
             {
                 entity.ToTable("Customer");
 
-                entity.Property(e => e.Address1).HasColumnName("Address_1");
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.Address2).HasColumnName("Address_2");
+                entity.Property(e => e.AddressDetails)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.City)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ServiceName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<DialUpConnection>(entity =>
+            {
+                entity.HasKey(e => e.ConnectionId)
+                    .HasName("PK__DialUpCo__404A64F39455C7A2");
+
+                entity.ToTable("DialUpConnection");
+
+                entity.Property(e => e.ConnectionId).HasColumnName("ConnectionID");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.PakageName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<LandLineConnection>(entity =>
+            {
+                entity.HasKey(e => e.ConnectionId)
+                    .HasName("PK__LandLine__404A64F35A4913A5");
+
+                entity.ToTable("LandLineConnection");
+
+                entity.Property(e => e.ConnectionId).HasColumnName("ConnectionID");
+
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
+                entity.Property(e => e.PakageName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
