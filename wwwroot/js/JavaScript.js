@@ -90,5 +90,18 @@ $("#RegisterServices").click(function (event) {
 	});
 });
 
+$('#logoutBtn').click(function () {
+	$.ajax({
+		url: '/YourController/logOut', 
+		type: 'GET',
+		success: function () {
+			location.reload();
+		},
+		error: function (xhr, status, error) {
+			console.error(error); 
+		}
+	});
+});
+
 
 

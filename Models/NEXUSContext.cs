@@ -26,6 +26,7 @@ namespace NEXUS.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
             }
         }
 
@@ -112,13 +113,9 @@ namespace NEXUS.Models
 
             modelBuilder.Entity<Registration>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Registration");
 
                 entity.Property(e => e.Email).HasMaxLength(1);
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Password).HasMaxLength(1);
 

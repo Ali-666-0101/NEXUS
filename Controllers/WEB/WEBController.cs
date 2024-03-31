@@ -41,48 +41,49 @@ namespace NEXUS.Controllers.WEB
             return View();
         }
 
-        public IActionResult LoginSubmit(Login log)
-        {
-			var user = _context.Registrations.FirstOrDefault(u => u.UserName == log.UserName);
+  //      public IActionResult LoginSubmit(Login log)
+  //      {
+		//	var user = _context.Registrations.FirstOrDefault(u => u.UserName == log.UserName);
 
-			if (user == null || user.Password != log.Password) 
-			{
-				TempData["error"] = "the credential is invalid";
-			}
-            if(user != null)
-            {
-			    HttpContext.Session.SetString("UserName", user.UserName);
-            }
+		//	if (user == null || user.Password != log.Password) 
+		//	{
+		//		TempData["error"] = "the credential is invalid";
+		//	}
+  //          if(user != null)
+  //          {
+		//	    HttpContext.Session.SetString("UserName", user.UserName);
+  //          }
 
-			return RedirectToAction("CustomarPannal", "Home");
-		}
+		//	return RedirectToAction("Index", "CustomarPannal");
+		//}
 
-		//Registration api 
-		[HttpPost]
-        public IActionResult Register(Registration registration)
-        {
-            if (_context.Registrations.Any(r => r.UserName == registration.UserName))
-            {
-                return BadRequest("Username already exists");
-            }
+		////Registration api 
+		//[HttpPost]
+  //      public IActionResult Register(Registration registration)
+  //      {
+  //          var data = _context.Registrations.Any(r => r.UserName == registration.UserName);
+  //          var data2 = _context.Registrations.Any(r => r.Email == registration.Email);
+		//	if (data)
+  //          {
+  //              return BadRequest("Username already exists");
+  //          }
 
-            if (_context.Registrations.Any(r => r.Email == registration.Email))
-            {
-                return BadRequest("Email already exists");
-            }
+  //          if (data2)
+  //          {
+  //              return BadRequest("Email already exists");
+  //          }
 
-            _context.Registrations.Add(registration);
-            _context.SaveChanges();
+  //          _context.Registrations.Add(registration);
+  //          _context.SaveChanges();
 
-			HttpContext.Session.SetInt32("UserId", registration.Id);
-            if(registration.UserName != null) 
-            { 
-			    HttpContext.Session.SetString("UserName", registration.UserName);
-            }
+  //          if(registration.UserName != null) 
+  //          { 
+		//	    HttpContext.Session.SetString("UserName", registration.UserName);
+  //          }
 			
 
-			return RedirectToAction("Login");
-        }
+		//	return RedirectToAction("Login");
+  //      }
 
     }
 }

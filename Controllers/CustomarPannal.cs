@@ -14,7 +14,15 @@ namespace NEXUS.Controllers
 
 		public IActionResult Index()
 		{
-			return View();
+			var log = HttpContext.Session.GetString("UserName");
+			if ( log != null)
+			{
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("Index" , "WEBController");
+			}
 		}
 		public IActionResult Logout()
 		{
@@ -186,6 +194,12 @@ namespace NEXUS.Controllers
 			_context.SaveChanges(); // Save changes to the database
 
 			return Json("Data inserted successfully.");
+		}
+		public IActionResult logOut()
+		{
+			HttpContext.Session.Clear();
+
+			return RedirectToAction("Index", "WEBController");
 		}
 	}
 }
