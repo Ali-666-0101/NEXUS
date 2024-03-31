@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NEXUS.Models;
+using System.Diagnostics.Eventing.Reader;
+using static System.Net.WebRequestMethods;
 
 namespace NEXUS.Controllers
 {
@@ -24,12 +26,7 @@ namespace NEXUS.Controllers
 				return RedirectToAction("Index" , "WEBController");
 			}
 		}
-		public IActionResult Logout()
-		{
-			//HttpContext.Session.Clear();
 
-			return RedirectToAction("Index", "WEB");
-		}
 
 		[HttpPost]
 		public IActionResult ServicesRegistration(ServicesRequestModel model)
@@ -62,7 +59,8 @@ namespace NEXUS.Controllers
 				{
 
 					var dialUpConnection = new DialUpConnection();
-					dialUpConnection.CustomerId = customer.CustomerId;
+					dialUpConnection.CustomerId = HttpContext.Session.GetInt32("UserId");
+
 
 					if (model.HourlyPlan != null)
 					{
@@ -199,7 +197,38 @@ namespace NEXUS.Controllers
 		{
 			HttpContext.Session.Clear();
 
-			return RedirectToAction("Index", "WEBController");
+			return RedirectToAction("Index", "WEB");
 		}
+
+		public IActionResult HaveService()
+		{
+			var name = HttpContext.Session.GetString("UserName");
+			var id = HttpContext.Session.GetInt32("UserId");
+
+			var broadbandData = _context.BroadbandConnections
+				.FirstOrDefault(x => x.CustomerId == id);
+			var landLineData = _context.LandLineConnections
+				.FirstOrDefault(x => x.CustomerId == id);
+			var dialUpData = _context.DialUpConnections
+				.FirstOrDefault(x => x.CustomerId == id);
+
+			if (broadbandData != null)
+			{
+				return (IActionResult)broadbandData;
+			}
+			if (landLineData != null)
+			{
+				return (IActionResult)landLineData;
+			}
+			if (dialUpData != null)
+			{
+				return (IActionResult)dialUpData;
+			}
+			else
+			{
+				return Json(new { ErrorMessage = "Data not found" });
+			}
+		}
+
 	}
 }

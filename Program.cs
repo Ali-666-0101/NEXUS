@@ -13,7 +13,7 @@ namespace NEXUS
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<NEXUSContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
-
+            builder.Services.AddSession();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,8 +26,8 @@ namespace NEXUS
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
+			app.UseSession();
+			app.UseRouting();
 
             app.UseAuthorization();
 

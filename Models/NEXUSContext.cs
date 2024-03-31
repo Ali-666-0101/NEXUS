@@ -20,7 +20,7 @@ namespace NEXUS.Models
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<DialUpConnection> DialUpConnections { get; set; } = null!;
         public virtual DbSet<LandLineConnection> LandLineConnections { get; set; } = null!;
-        public virtual DbSet<Registration> Registrations { get; set; } = null!;
+        public virtual DbSet<Register> Registers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -111,15 +111,21 @@ namespace NEXUS.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Registration>(entity =>
+            modelBuilder.Entity<Register>(entity =>
             {
-                entity.ToTable("Registration");
+                entity.ToTable("Register");
 
-                entity.Property(e => e.Email).HasMaxLength(1);
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Password).HasMaxLength(1);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.UserName).HasMaxLength(1);
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

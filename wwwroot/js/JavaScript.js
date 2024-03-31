@@ -92,10 +92,10 @@ $("#RegisterServices").click(function (event) {
 
 $('#logoutBtn').click(function () {
 	$.ajax({
-		url: '/YourController/logOut', 
+		url: '/CustomarPannal/logOut', 
 		type: 'GET',
 		success: function () {
-			location.reload();
+			window.location.reload();
 		},
 		error: function (xhr, status, error) {
 			console.error(error); 
@@ -103,5 +103,36 @@ $('#logoutBtn').click(function () {
 	});
 });
 
+
+$(document).ready(function () {
+	// Function to make AJAX request to HaveService API
+	function fetchData() {
+		$.ajax({
+			url: '/CustomarPannal/HaveService',
+			type: 'GET',
+			dataType: 'json',
+			success: function (data) {
+				// Populate form fields with received data
+				$('#specificSizeInputName').val(data.PakageName); // Example: BroadbandConnection PakageName
+				$('#specificSizeInputGroupUsername').val(data.Rates); // Example: BroadbandConnection Rates
+				// Additional fields can be populated similarly
+			},
+			error: function (xhr, status, error) {
+				console.error(error);
+			}
+		});
+	}
+
+	// Call fetchData function when page loads
+	fetchData();
+
+	// Handle form submission
+	$('#submitButton').click(function () {
+		// Add your form submission logic here
+		// For demonstration purposes, alerting the form data
+		var formData = $('#serviceForm').serialize();
+		alert(formData);
+	});
+});
 
 

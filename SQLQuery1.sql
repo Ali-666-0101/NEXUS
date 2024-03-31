@@ -35,8 +35,16 @@ CREATE TABLE LandLineConnection (
     Rates INT not null,
 );
 
+create table Register(
+	Id int primary key identity(1,1) ,
+	UserName varchar(50),
+	Email varchar(50),
+	[Password] varchar(50)
+)
+Select * from Register
 Select * from DialUpConnection
-
+select * from Customer
+select * from BroadbandConnection
 
 
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NEXUS.Models;
 using System.Linq;
-
+using Microsoft.AspNetCore.Http;
 
 namespace NEXUS.Controllers.WEB
 {
@@ -41,49 +41,61 @@ namespace NEXUS.Controllers.WEB
             return View();
         }
 
-  //      public IActionResult LoginSubmit(Login log)
-  //      {
-		//	var user = _context.Registrations.FirstOrDefault(u => u.UserName == log.UserName);
+        public IActionResult LoginSubmit(Login log)
+        {
+            var user = _context.Registers.FirstOrDefault(u => u.UserName == log.UserName);
 
-		//	if (user == null || user.Password != log.Password) 
-		//	{
-		//		TempData["error"] = "the credential is invalid";
-		//	}
-  //          if(user != null)
-  //          {
-		//	    HttpContext.Session.SetString("UserName", user.UserName);
-  //          }
+            if (user == null || user.Password != log.Password)
+            {
+                TempData["error"] = "the credential is invalid";
+                return RedirectToAction("Registration", "WEBController");
+            }
+            if (user != null)
+            {
+                HttpContext.Session.SetString("UserName", user.UserName);
+            }
+			if (!string.IsNullOrEmpty(log.UserName) && user != null)
+			{
+				HttpContext.Session.SetString("UserName", log.UserName);
+				HttpContext.Session.SetInt32("UserId", user.Id);
+			}
 
-		//	return RedirectToAction("Index", "CustomarPannal");
-		//}
+			return RedirectToAction("Index", "CustomarPannal");
+        }
 
-		////Registration api 
-		//[HttpPost]
-  //      public IActionResult Register(Registration registration)
-  //      {
-  //          var data = _context.Registrations.Any(r => r.UserName == registration.UserName);
-  //          var data2 = _context.Registrations.Any(r => r.Email == registration.Email);
-		//	if (data)
-  //          {
-  //              return BadRequest("Username already exists");
-  //          }
+        //Registration api
+        [HttpPost]
+		public IActionResult Register(Register registration)
+		{
+			if (registration == null)
+			{
+				return BadRequest("Registration data is null");
+			}
 
-  //          if (data2)
-  //          {
-  //              return BadRequest("Email already exists");
-  //          }
+			var usernameExists = _context.Registers.Any(r => r.UserName == registration.UserName);
+			var emailExists = _context.Registers.Any(r => r.Email == registration.Email);
 
-  //          _context.Registrations.Add(registration);
-  //          _context.SaveChanges();
+			if (usernameExists)
+			{
+				return BadRequest("Username already exists");
+			}
 
-  //          if(registration.UserName != null) 
-  //          { 
-		//	    HttpContext.Session.SetString("UserName", registration.UserName);
-  //          }
+			if (emailExists)
+			{
+				return BadRequest("Email already exists");
+			}
+            
+
+			_context.Registers.Add(registration);
+			_context.SaveChanges();
+            
+
 			
 
-		//	return RedirectToAction("Login");
-  //      }
+			// Redirect to the appropriate page after successful registration
+			return RedirectToAction("Login");
+		}
 
-    }
+
+	}
 }
