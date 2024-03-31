@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NEXUS.Models;
+using System.Linq;
+
 
 namespace NEXUS.Controllers.WEB
 {
@@ -30,44 +32,57 @@ namespace NEXUS.Controllers.WEB
         {
             return View();
         }
-		public IActionResult Registration()
-		{
-			return View();
-		}
+        public IActionResult Registration()
+        {
+            return View();
+        }
         public IActionResult Login()
         {
             return View();
         }
 
-        //[HttpPost]
-   //     public async Task<IActionResult> Registration(Customer Customar)
-   //     {
-   //         try
-   //         {
-			//	var customar = new Customer()
-			//	{
-			//		FirstName = Customar.FirstName,
-			//		LastName = Customar.LastName,
-			//		Email = Customar.Email,
-			//		Password = Customar.Password,
-			//		Address1 = Customar.Address1,
-			//		Address2 = Customar.Address2,
-			//		PhoneNumber = Customar.PhoneNumber,
-			//		City = Customar.City,
-			//		ZipCode = Customar.ZipCode,
-			//	};
-   //             await _context.Customers.AddAsync(customar);
-   //             await _context.SaveChangesAsync();
-   //             //HttpContext.Session.SetString("RegistrationStatus", "success");
-   //             return RedirectToAction("Index","CustomarPannal");
-			//}
-   //         catch
-   //         {
-			//	TempData["error"] = "An error occurred while processing your registration. Please try again later.";
+        public IActionResult LoginSubmit(Login log)
+        {
+			var user = _context.Registrations.FirstOrDefault(u => u.UserName == log.UserName);
 
-			//	return RedirectToAction("Registration");
-			//}
+			if (user == null || user.Password != log.Password) 
+			{
+				TempData["error"] = "the credential is invalid";
+			}
+            if(user != null)
+            {
+			    HttpContext.Session.SetString("UserName", user.UserName);
+            }
 
-   //     }
+			return RedirectToAction("CustomarPannal", "Home");
+		}
+
+		//Registration api 
+		[HttpPost]
+        public IActionResult Register(Registration registration)
+        {
+            if (_context.Registrations.Any(r => r.UserName == registration.UserName))
+            {
+                return BadRequest("Username already exists");
+            }
+
+            if (_context.Registrations.Any(r => r.Email == registration.Email))
+            {
+                return BadRequest("Email already exists");
+            }
+
+            _context.Registrations.Add(registration);
+            _context.SaveChanges();
+
+			HttpContext.Session.SetInt32("UserId", registration.Id);
+            if(registration.UserName != null) 
+            { 
+			    HttpContext.Session.SetString("UserName", registration.UserName);
+            }
+			
+
+			return RedirectToAction("Login");
+        }
+
     }
 }

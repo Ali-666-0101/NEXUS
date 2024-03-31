@@ -17,12 +17,10 @@ namespace NEXUS.Models
         }
 
         public virtual DbSet<BroadbandConnection> BroadbandConnections { get; set; } = null!;
-        public virtual DbSet<CallCharge> CallCharges { get; set; } = null!;
-        public virtual DbSet<ConnectionPlan> ConnectionPlans { get; set; } = null!;
-        public virtual DbSet<ConnectionType> ConnectionTypes { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<DialUpConnection> DialUpConnections { get; set; } = null!;
         public virtual DbSet<LandLineConnection> LandLineConnections { get; set; } = null!;
+        public virtual DbSet<Registration> Registrations { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -46,51 +44,6 @@ namespace NEXUS.Models
 
                 entity.Property(e => e.PakageName)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<CallCharge>(entity =>
-            {
-                entity.Property(e => e.CallChargeId).ValueGeneratedNever();
-
-                entity.Property(e => e.CallType)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Charge).HasColumnType("decimal(10, 2)");
-
-                entity.HasOne(d => d.Plan)
-                    .WithMany(p => p.CallCharges)
-                    .HasForeignKey(d => d.PlanId)
-                    .HasConstraintName("FK__CallCharg__PlanI__4E88ABD4");
-            });
-
-            modelBuilder.Entity<ConnectionPlan>(entity =>
-            {
-                entity.ToTable("ConnectionPlan");
-
-                entity.Property(e => e.ConnectionPlanId).ValueGeneratedNever();
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
-
-                entity.HasOne(d => d.ConnectionType)
-                    .WithMany(p => p.ConnectionPlans)
-                    .HasForeignKey(d => d.ConnectionTypeId)
-                    .HasConstraintName("FK__Connectio__Conne__4BAC3F29");
-            });
-
-            modelBuilder.Entity<ConnectionType>(entity =>
-            {
-                entity.ToTable("ConnectionType");
-
-                entity.Property(e => e.ConnectionTypeId).ValueGeneratedNever();
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
@@ -155,6 +108,21 @@ namespace NEXUS.Models
                 entity.Property(e => e.PakageName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Registration>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Registration");
+
+                entity.Property(e => e.Email).HasMaxLength(1);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Password).HasMaxLength(1);
+
+                entity.Property(e => e.UserName).HasMaxLength(1);
             });
 
             OnModelCreatingPartial(modelBuilder);

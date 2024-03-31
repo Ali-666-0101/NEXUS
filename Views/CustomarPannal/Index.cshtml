@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="ep.css">
+
 	<style>
 		.main {
 			padding: 100px;
@@ -33,10 +33,10 @@
 
 
 
-
+	
 
 	<div class="main">
-
+		<div id="fff23"></div>
 		<!-- Accordion start here -->
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 			<div class="accordion-item">
@@ -51,15 +51,15 @@
 						<form class="row g-3">
 							<div class="col-md-6">
 								<label for="inputEmail4" class="form-label">Name</label>
-								<input type="email" class="form-control" id="inputEmail4">
+								<input type="text" class="form-control" id="inputEmail4">
 							</div>
 							<div class="col-md-6">
 								<label for="inputPassword4" class="form-label">Email</label>
-								<input type="password" class="form-control" id="inputPassword4">
+								<input type="email" class="form-control" id="inputPassword4">
 							</div>
 							<div class="col-md-6">
 								<label for="inputPassword4" class="form-label">Phone</label>
-								<input type="password" class="form-control" id="inputPassword4">
+								<input type="text" class="form-control" id="inputPassword4">
 							</div>
 							<div class="col-6">
 								<label for="inputAddress" class="form-label">Address</label>
@@ -76,10 +76,10 @@
 							<div class="col-md-4">
 								<label for="inputState" class="form-label">Service Name</label>
 								<select id="ServiceId" class="form-select">
-									<option value="0" selected>Select</option>
+									<option >Select</option>
 									<option value="1">Brodbank Connection</option>
 									<option value="2">Land line Connection</option>
-									<option value="3">TV Connnection</option>
+									<option value="3">Dial-Up Connection</option>
 								</select>
 							</div>
 							<div class="col-md-2">
@@ -112,13 +112,13 @@
 								<h6>Unlimited 28Kbps</h6>
 								<div>
 									<label>
-										<input type="radio" name="28kbpsPlan" value="Monthly">
+										<input type="radio" name="28kbpsPlan" value="28kbpsMonthly">
 										Monthly – $75
 									</label>
 								</div>
 								<div>
 									<label>
-										<input type="radio" name="28kbpsPlan" value="Quarterly">
+										<input type="radio" name="28kbpsPlan" value="28kbpsQuarterly">
 										Quarterly – $150
 									</label>
 								</div>
@@ -126,13 +126,13 @@
 								<h6>Unlimited 56 Kbps</h6>
 								<div>
 									<label>
-										<input type="radio" name="56kbpsPlan" value="Monthly">
+										<input type="radio" name="56kbpsPlan" value="56kbpsMonthly">
 										Monthly – $100
 									</label>
 								</div>
 								<div>
 									<label>
-										<input type="radio" name="56kbpsPlan" value="Quarterly">
+										<input type="radio" name="56kbpsPlan" value="56kbpsQuarterly">
 										Quarterly – $180
 									</label>
 								</div>
@@ -159,13 +159,13 @@
 								<h6>Unlimited 64Kbps</h6>
 								<div>
 									<label>
-										<input type="radio" name="64kbpsPlan" value="Monthly">
+										<input type="radio" name="64kbpsPlan" value="64kbpsMonthly">
 										Monthly – $225
 									</label>
 								</div>
 								<div>
 									<label>
-										<input type="radio" name="64kbpsPlan" value="Quarterly">
+										<input type="radio" name="64kbpsPlan" value="64kbpsQuarterly">
 										Quarterly – $400
 									</label>
 								</div>
@@ -173,13 +173,13 @@
 								<h6>Unlimited 128 Kbps</h6>
 								<div>
 									<label>
-										<input type="radio" name="128kbpsPlan" value="Monthly">
+										<input type="radio" name="128kbpsPlan" value="128kbpsMonthly">
 										Monthly – $350
 									</label>
 								</div>
 								<div>
 									<label>
-										<input type="radio" name="128kbpsPlan" value="Quarterly">
+										<input type="radio" name="128kbpsPlan" value="128kbpsQuarterly">
 										Quarterly – $445
 									</label>
 								</div>
@@ -235,7 +235,7 @@
 								<div>
 									<label>
 										<input type="radio" name="stdPlan" value="Yearly">
-										Yearly - $ (Valid for one year, rental only)
+										Yearly - $700 (Valid for one year, rental only)
 									</label>
 								</div>
 								<p>The call charges are:</p>
@@ -411,89 +411,11 @@
 
 
 	</div>
-
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-	<script>
-		$(document).ready(function () {
-			// Attach change event handler to the select element
-			$("#ServiceId").on('change', function () {
-				// Get the value of the select element
-				let connectionID = $(this).val();
-
-				// Hide all connection sections
-				$("#DailUp, #BroadbandConnection, #LandLineConnection").hide();
-
-				// Show the selected connection section based on the value
-				if (connectionID === '1') {
-					$("#DailUp").show();
-				} else if (connectionID === '2') {
-					$("#BroadbandConnection").show();
-				} else if (connectionID === '3') {
-					$("#LandLineConnection").show();
-				}
-			});
-
-			// Bind click event handler for the RegisterServices button
-			$("#RegisterServices").click(function () {
-				event.preventDefault();
-
-				console.log("helow")
-				$.ajax({
-					type: 'POST',
-					url: '/CustomarPannal/ServicesRegistration',
-					data: getFormData(),
-					success: function (response) {
-						// Handle success response here
-						console.log(response);
-					},
-					error: function (xhr, status, error) {
-						// Handle error
-						console.error(xhr.responseText);
-					}
-				});
-			});
-		});
-
-		function getFormData() {
-			// Declare formData object
-			var formData = {};
-
-			// Retrieve values from input fields by their IDs
-			formData.name = $('#inputEmail4').val();
-			formData.email = $('#inputPassword4').val();
-			formData.phone = $('#inputPassword4').val();
-			formData.address = $('#inputAddress').val();
-			formData.detailAddress = $('#inputAddress2').val();
-			formData.city = $('#inputCity').val();
-			formData.serviceId = $('#ServiceId').val();
-			formData.zip = $('#inputZip').val();
-
-			// Retrieve values from radio buttons
-			formData.hourlyPlan = $('input[name="hourlyPlan"]:checked').val();
-			formData.kbpsPlan28 = $('input[name="28kbpsPlan"]:checked').val();
-			formData.kbpsPlan56 = $('input[name="56kbpsPlan"]:checked').val();
-			formData.broadbandHourlyPlan = $('input[name="broadbandHourlyPlan"]:checked').val();
-			formData.kbpsPlan64 = $('input[name="64kbpsPlan"]:checked').val();
-			formData.kbpsPlan128 = $('input[name="128kbpsPlan"]:checked').val();
-			formData.localPlan = $('input[name="localPlan"]:checked').val();
-			formData.stdPlan = $('input[name="stdPlan"]:checked').val();
-
-			// Return formData object
-			return formData;
-		}
-	</script>
-
-
-
-
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	
-
-
-	
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/js/javascript.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
