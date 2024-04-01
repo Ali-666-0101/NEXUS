@@ -96,6 +96,14 @@ namespace NEXUS.Controllers.WEB
 			return RedirectToAction("Login");
 		}
 
+        public IActionResult ContectPost(Contect model)
+        {
+            _context.Contects.Add(model);
+            _context.SaveChanges();
+            TempData["M"] = "Massege sent Success";
+            return RedirectToAction("Contact");
+        }
 
-	}
+
+    }
 }

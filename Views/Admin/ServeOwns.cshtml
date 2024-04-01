@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+@model IEnumerable<NEXUS.Models.ServeOwn>
+
+@{
+    ViewData["Title"] = "ServeOwns";
+}
+
+<h1>ServeOwns</h1>
+
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustumarId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustumarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

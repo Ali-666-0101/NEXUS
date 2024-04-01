@@ -1,46 +1,53 @@
-﻿
+﻿@model NEXUS.Models.Contect
 <link href="~/css/site.css" rel="stylesheet" />
-	<!-- contact section -->
-	<section class="contact_section layout_padding">
-		<div class="container">
-			<div class="heading_container heading_center">
-				<h2>
-					Get In Touch
-				</h2>
-			</div>
-			<div class="row">
-				<div class="col-md-8 col-lg-6 mx-auto">
-					<div class="form_container">
-						<form action="">
-							<div>
-								<input type="text" placeholder="Your Name" />
-							</div>
-							<div>
-								<input type="email" placeholder="Your Email" />
-							</div>
-							<div>
-								<input type="text" placeholder="Your Phone" />
-							</div>
-							<div>
-								<input type="text" class="message-box" placeholder="Message" />
-							</div>
-							<div class="btn_box ">
-								<button>
-									SEND
+<!-- contact section -->
+<section class="contact_section layout_padding">
+	<div class="container">
+		<div class="heading_container heading_center">
+			<h2>
+				Get In Touch
+			</h2>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-lg-6 mx-auto">
+				<div class="form_container">
+					@{
+						if (TempData["M"] != null)
+						{
+							<div class="alert alert-warning alert-dismissible fade show" role="alert">
+								<strong>Holy guacamole!</strong> @TempData["M"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-						</form>
-					</div>
-					<div class="newClass">
-						<button><a asp-action="Registration" asp-controller="WEB">Register Now</a></button>
-						<button><a asp-action="Login" asp-controller="WEB">Login Now</a></button>
-					</div>
+						}
+					}
+					<form asp-controller="WEB" asp-action="ContectPost" method="post">
+						<div>
+							<input asp-for="Name" placeholder="Your Name" />
+						</div>
+						<div>
+							<input asp-for="Email" placeholder="Your Email" />
+						</div>
+						<div>
+							<input asp-for="Phone" placeholder="Your Phone" />
+						</div>
+						<div>
+							<input asp-for="Message" class="message-box" placeholder="Message" />
+						</div>
+						<div class="btn_box">
+							<button type="submit">SEND</button>
+						</div>
+					</form>
+				</div>
+				<div class="newClass">
+					<button><a asp-action="Registration" asp-controller="WEB">Register Now</a></button>
+					<button><a asp-action="Login" asp-controller="WEB">Login Now</a></button>
 				</div>
 			</div>
-			
 		</div>
-	</section>
-	<!-- end contact section -->
-	<!-- info section -->
 
-	
+	</div>
+</section>
+<!-- end contact section -->
+<!-- info section -->
